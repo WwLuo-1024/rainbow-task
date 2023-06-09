@@ -1,9 +1,14 @@
+/**
+ * @description Middle Part - Calculation
+ * @author Luo Wang
+ */
 import React, { FC, useState, useRef, useEffect } from 'react'
 import { View, Text, StyleSheet, TextInput } from 'react-native'
 import { MIDDLE_PART_FONT } from '../constant'
 import { useSelector } from 'react-redux'
 import { StateType } from '../store'
 import { PriceStateType } from '../store/priceReducer'
+import { NEW_PRICE, DISCOUNT_PRICE } from '../constant/index'
 import CustomSlider from './CustomSlider'
 
 const Middle: FC = () => {
@@ -18,6 +23,7 @@ const Middle: FC = () => {
 
   let discountRateRef = useRef(discountRate)
 
+  //useEffect listens for data changes
   useEffect(() => {
     const priceInt = Math.round(productList.originalPrice - productList.discount)
     setNewPrice(priceInt.toString())
@@ -28,6 +34,7 @@ const Middle: FC = () => {
     setCircleValue(circleValueInt)
   }, [productList])
 
+  //o handle the impact of the new discounted price
   function handleDiscount(newDiscount: number) {
     const priceAfterNewDiscount = originalPrice - newDiscount
     setNewPrice(priceAfterNewDiscount.toString())
@@ -35,6 +42,7 @@ const Middle: FC = () => {
     setCircleValue(Math.round(Number(discountRate) * 100))
   }
 
+  //o handle the impact of the new price
   function handleNewPrice(newPrice: number) {
     const discountAfterNewPrice = originalPrice - newPrice
     setDiscountPrice(discountAfterNewPrice.toString())
@@ -45,8 +53,9 @@ const Middle: FC = () => {
   return (
     <View>
       <View style={[styles.middleTop]}>
+        {/* New Price Input */}
         <View>
-          <Text style={MIDDLE_PART_FONT}>New Price, USD</Text>
+          <Text style={MIDDLE_PART_FONT}>{NEW_PRICE}</Text>
           <TextInput
             keyboardType="numeric"
             style={[styles.textInputStyle]}
@@ -55,8 +64,10 @@ const Middle: FC = () => {
             onEndEditing={value => handleNewPrice(Number(value.nativeEvent.text))}
           />
         </View>
+
+        {/* New Discount Input */}
         <View style={{ marginLeft: 'auto', alignSelf: 'flex-end' }}>
-          <Text style={MIDDLE_PART_FONT}>Discount, USD</Text>
+          <Text style={MIDDLE_PART_FONT}>{DISCOUNT_PRICE}</Text>
           <TextInput
             keyboardType="numeric"
             style={[styles.textInputStyle]}
@@ -67,10 +78,14 @@ const Middle: FC = () => {
         </View>
       </View>
 
+      {/* Bottom */}
       <View style={[styles.middleBottom]}>
+        {/* Bottom - Slider */}
         <View>
           <CustomSlider productList={productList} />
         </View>
+
+        {/* Bottom - Circle */}
         <View style={[styles.circleValue]}>
           <Text style={{ fontSize: 18, color: '#ffffff', fontWeight: '700' }}>{circleValue}%</Text>
         </View>

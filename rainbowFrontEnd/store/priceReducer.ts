@@ -1,4 +1,7 @@
-/* eslint-disable prettier/prettier */
+/**
+ * @description Redux Reducer and Action
+ * @author Luo Wang
+ */
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import produce from 'immer'
 

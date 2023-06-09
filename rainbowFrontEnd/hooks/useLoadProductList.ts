@@ -1,3 +1,7 @@
+/**
+ * @description Custom Hook to handle network request (data)
+ * @author Luo Wang
+ */
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { useRequest } from 'ahooks'
@@ -14,7 +18,7 @@ function useLoadProductList() {
       if (!id) {
         throw new Error('No Product Id')
       }
-      console.log('开始访问')
+      // console.log('Start to load')
       const data = await getProductList(id)
       return data
     },
@@ -23,23 +27,10 @@ function useLoadProductList() {
     }
   )
 
-  // useEffect(() => {
-  //   if (!data) {
-  //     console.log('不执行')
-  //     return
-  //   }
-  //   console.log('Received Data:', data)
-  //   const {
-  //     productId = '',
-  //     originalPrice = 0,
-  //     discount = 0,
-  //     isSale = false,
-  //     isPublish = false,
-  //   } = data
-  //   dispatch(resetProduct({ productId, originalPrice, discount, isSale, isPublish }))
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [data])
-  if (data) {
+  useEffect(() => {
+    if (!data) {
+      return
+    }
     console.log('Received Data:', data)
     const {
       productId = '',
@@ -49,11 +40,11 @@ function useLoadProductList() {
       isPublish = false,
     } = data
     dispatch(resetProduct({ productId, originalPrice, discount, isSale, isPublish }))
-  }
+  }, [data])
 
+  //Manually network request when id changed
   useEffect(() => {
     run(id)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id])
 
   return { loading, error }

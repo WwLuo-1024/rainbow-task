@@ -1,3 +1,7 @@
+/**
+ * @description Contant Values
+ * @author Luo Wang
+ */
 import { StyleProp } from 'react-native-windows/types'
 
 export const SALE_WORDS =
@@ -8,3 +12,7 @@ export const MIDDLE_PART_FONT: StyleProp<Text> = {
   color: '#aeb8ad',
   fontWeight: '600',
 }
+
+export const TOP_TITLE = 'SALE'
+export const NEW_PRICE = 'New Price, USD'
+export const DISCOUNT_PRICE = 'Discount, USD'

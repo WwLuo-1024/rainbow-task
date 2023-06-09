@@ -1,5 +1,7 @@
-/* eslint-disable react-native/no-inline-styles */
-/* eslint-disable prettier/prettier */
+/**
+ * @description Subcomponent Slider
+ * @author Luo Wang
+ */
 import React, { FC, useState, useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Slider, Icon } from '@rneui/themed';
@@ -10,6 +12,7 @@ import { changePriceBySlider } from '../store/priceReducer';
 import { useDispatch } from 'react-redux';
 import { PriceStateType } from '../store/priceReducer';
 
+//PropsType Definition (props from parent component)
 type PrposType = {
   productList: PriceStateType
 }
@@ -22,13 +25,12 @@ const CustomSlider: FC<PrposType> = (props: PrposType) => {
   let discountRate = discount / originalPrice;
   const [value, setValue] = useState(0);
 
+  //useEffect listens for data changes
   useEffect(() => {
     setValue(discountRate * 10 || 0);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[productList]);
-  console.log(discountRate);
 
-  console.log(value);
+  //The cursor array is used to generate the sliding scale
   const cursor = new Array(9).fill(0).map((v, i) => i + 1);
 
   function handleSliderValue(value: number){
@@ -38,15 +40,11 @@ const CustomSlider: FC<PrposType> = (props: PrposType) => {
     } catch (err) {
       console.error(err);
     }
-
   }
 
   return (
     <>
-
-
       <View style={[styles.contentView]}>
-
       <View style={{zIndex: 1, display:'flex', flexDirection:'row', width: '100%'}}>
         <Text style={ MIDDLE_PART_FONT }>0%</Text>
         <Text style={{ ...MIDDLE_PART_FONT as {}, marginLeft:'30%'}}>50%</Text>

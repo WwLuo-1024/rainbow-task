@@ -1,32 +1,35 @@
-/* eslint-disable prettier/prettier */
+/**
+ * @description Main Page
+ * @author Luo Wang
+ */
 import React from 'react';
 import { ScrollView, StyleSheet, ActivityIndicator } from 'react-native';
 import { Divider } from '@rneui/themed';
-// import mockData from './mock/data.json';
+import { View } from '@ant-design/react-native';
+
 import Top from './components/Top';
 import Middle from './components/Middle';
 import Footer from './components/Footer';
 import useLoadProductList from './hooks/useLoadProductList';
-import { View } from '@ant-design/react-native';
-// type DataType = {
-//   originalPrice: number;
-//   discountPrice: number;
-// }
+
 
 function App() {
   const {loading} = useLoadProductList();
   if (loading) {
-    console.log('正在加载');
+    console.log('Loading Data');
   }
 
   return (
     <ScrollView style={[styles.container]}>
+      {/* If data is being loaded, the loading spin will be displayed. */}
       {loading && (<View style={{textAlign:'center', marginTop: 50}}>
                     <ActivityIndicator size="large" color="#00ff00"/>
                   </View>
       )}
 
+      {/* If data is already loaded, the main page will be displayed. */}
       {!loading && (<View>
+      {/* Top */}
       <Top />
       <Divider />
 
@@ -37,7 +40,7 @@ function App() {
       {/* Footer */}
       <Footer />
       <Divider /></View>)}
-      {/* Top */}
+      
 
 
 
