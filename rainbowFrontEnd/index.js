@@ -1,9 +1,18 @@
+/* eslint-disable prettier/prettier */
 /**
  * @format
  */
-
-import {AppRegistry} from 'react-native';
+import { registerRootComponent } from 'expo';
+import { AppRegistry } from 'react-native';
 import App from './App';
-import {name as appName} from './app.json';
+import { name as appName } from './app.json';
+import { Provider } from 'react-redux';
+import store from './store';
 
-AppRegistry.registerComponent(appName, () => App);
+const Root = () => (
+<Provider store={store}>
+    <App />
+</Provider>);
+
+AppRegistry.registerComponent(appName, () => Root);
+registerRootComponent(Root);
