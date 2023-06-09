@@ -1,6 +1,8 @@
 # Rainbow-FrontEnd
 
-The React Travel website is an online travel platform developed by React18. It aims to provide users with travel route planning (domestic and overseas), personalisation of private tours and so on. It also provides various information such as hotel photos, photos of sights, hotel phone numbers, hotel addresses and hotel reviews from real users to facilitate the user's choice.
+This is a project that follows a separate development model for the front-end and back-end. The front-end development utilizes 1. React Native, 2. TypeScript, and 3. RTK (Redux Toolkit) technology. The back-end development is primarily based on 1. Nest.js and 2. TypeScript, with nodemon used to enable global listening during development. The whole project has been debugged into the expo environment on a personal iOS device.
+
+The project's functionality revolves around mock data generated using mock.js. Each network request retrieves different product data (original price and discount) whenever the project is reloaded. The sales and publish status are also initially set to false on the server side. Upon entering the page, users have the option to adjust the price displayed in the middle. Once a product is needed to be confirmed for publication, users can activate the Sale status by clicking the switch at the top, which simultaneously enables the Publish button below. Clicking the Publish button sends the product details (including the product ID, final price, and publish date) to the server, after which the button is disabled again.
 <br />
 <br />
 <img align="left" alt="React" width="40px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/react/react.png" />
@@ -50,3 +52,17 @@ $ nodemon --exec
 
 1. NestJs
 2. TypeScript
+
+## Demo
+### Front End
+
+<div align="center">
+    <img src="Demo/FrontEnd01.png" height="400" width="200">
+    <img src="Demo/FrontEnd02.png" height="400" width="200">
+    <img src="Demo/FrontEnd03.png" height="400" width="200">
+</div>
+
+### Back End
+<div align="center">
+    <img src="Demo/BackEnd01.png" width="800">
+</div>
