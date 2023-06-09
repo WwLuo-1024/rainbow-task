@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Query, Request } from '@nestjs/common';
 import { AppService } from './app.service';
 import { SuccessModel, ErrorModel } from './model/resModel';
-import mockjs from 'mockjs';
+import mockjs = require('mockjs');
 
 const Random = mockjs.Random;
 
