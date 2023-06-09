@@ -14,6 +14,11 @@ The project's functionality revolves around mock data generated using mock.js. E
 <br />
 <br />
 
+## Table of Contents
+- [Usage](#usage)
+- [Technologies In This Project](#technologies-in-this-project)
+- [Demo](#demo)
+
 
 ## Usage
 ### Front End
@@ -29,8 +34,11 @@ $ npm start
 # Expo React Native
 $ expo start
 ```
+！！！Note: Need to start the back-end service before starting the front-end to get the data
 
 ### Back End
+
+Terminal
 ```sh
 $ cd rainbow-back-end
 $ npm install
