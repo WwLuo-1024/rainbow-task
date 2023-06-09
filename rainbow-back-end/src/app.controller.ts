@@ -1,3 +1,7 @@
+/**
+ * @description Create API
+ * @author Luo Wang
+ */
 import { Controller, Get, Post, Query, Request } from '@nestjs/common';
 import { AppService } from './app.service';
 import { SuccessModel, ErrorModel } from './model/resModel';
@@ -23,6 +27,9 @@ export class AppController {
   }
 }
 
+{
+  /* Product API */
+}
 @Controller('/api/product')
 export class ProductController {
   @Get('/')
