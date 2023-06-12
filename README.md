@@ -1,4 +1,4 @@
-# Rainbow-FrontEnd
+# Rainbow-Task
 
 This is a project that follows a separate development model for the front-end and back-end. The front-end development utilizes 1. React Native, 2. TypeScript, and 3. RTK (Redux Toolkit) technology. The back-end development is primarily based on 1. Nest.js and 2. TypeScript, with nodemon used to enable global listening during development. The whole project has been debugged into the expo environment on a personal iOS device.
 
@@ -14,6 +14,12 @@ The project's functionality revolves around mock data generated using mock.js. E
 <br />
 <br />
 
+## Table of Contents
+- [Usage](#usage)
+- [Technologies In This Project](#technologies-in-this-project)
+- [Demo](#demo)
+
+
 ## Usage
 ### Front End
 
@@ -28,8 +34,11 @@ $ npm start
 # Expo React Native
 $ expo start
 ```
+！！！Note: Need to start the back-end service before starting the front-end to get the data
 
 ### Back End
+
+Terminal
 ```sh
 $ cd rainbow-back-end
 $ npm install
