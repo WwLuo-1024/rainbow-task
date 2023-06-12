@@ -5,9 +5,9 @@
 import React, { FC, useState, useRef, useEffect } from 'react'
 import { View, Text, StyleSheet, TextInput } from 'react-native'
 import { MIDDLE_PART_FONT } from '../constant'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { StateType } from '../store'
-import { PriceStateType } from '../store/priceReducer'
+import { PriceStateType, changeSlider } from '../store/priceReducer'
 import { NEW_PRICE, DISCOUNT_PRICE } from '../constant/index'
 import CustomSlider from './CustomSlider'
 
@@ -16,6 +16,7 @@ const Middle: FC = () => {
   const { originalPrice = 0, discount = 0 } = productList
   let discountRate = Math.round(discount / originalPrice).toFixed(2)
   const newPriceInitial = originalPrice - discount;
+  const dispatch = useDispatch()
 
   const [newPrice, setNewPrice] = useState(newPriceInitial.toString())
   const [discountPrice, setDiscountPrice] = useState(discount.toString())
@@ -37,6 +38,7 @@ const Middle: FC = () => {
   //o handle the impact of the new discounted price
   function handleDiscount(newDiscount: number) {
     const priceAfterNewDiscount = originalPrice - newDiscount
+    dispatch(changeSlider(newDiscount))
     setNewPrice(priceAfterNewDiscount.toString())
     discountRate = (newDiscount / originalPrice).toFixed(2)
     setCircleValue(Math.round(Number(discountRate) * 100))
@@ -46,6 +48,7 @@ const Middle: FC = () => {
   function handleNewPrice(newPrice: number) {
     const discountAfterNewPrice = originalPrice - newPrice
     setDiscountPrice(discountAfterNewPrice.toString())
+    dispatch(changeSlider(discountAfterNewPrice))
     discountRate = (discountAfterNewPrice / originalPrice).toFixed(2)
     setCircleValue(Math.round(Number(discountRate) * 100))
   }
