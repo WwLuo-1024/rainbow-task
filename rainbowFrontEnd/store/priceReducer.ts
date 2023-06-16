@@ -29,9 +29,9 @@ export const userSlice = createSlice({
       return action.payload
     },
 
-    changePriceBySlider(states: PriceStateType, action: PayloadAction<PriceStateType>) {
-      return action.payload
-    },
+    changeDiscountBySlider: produce((draft: PriceStateType, action: PayloadAction<number>) => {
+      draft.discount = action.payload
+    }),
 
     changePublish: produce((draft: PriceStateType, action: PayloadAction<boolean>) => {
       draft.isPublish = action.payload
@@ -47,7 +47,7 @@ export const userSlice = createSlice({
   },
 })
 
-export const { resetProduct, changePriceBySlider, changePublish, changeSale, changeDiscount } =
+export const { resetProduct, changeDiscountBySlider, changePublish, changeSale, changeDiscount } =
   userSlice.actions
 
 export default userSlice.reducer

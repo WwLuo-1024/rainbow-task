@@ -8,7 +8,7 @@ import { Slider, Icon } from '@rneui/themed';
 import { Text } from '@rneui/base';
 import {LinearGradient} from 'expo-linear-gradient';
 import { MIDDLE_PART_FONT } from '../constant';
-import { changePriceBySlider } from '../store/priceReducer';
+import { changeDiscountBySlider } from '../store/priceReducer';
 import { useDispatch } from 'react-redux';
 import { PriceStateType } from '../store/priceReducer';
 
@@ -21,7 +21,7 @@ const CustomSlider: FC<PrposType> = (props: PrposType) => {
   const productList = props.productList;
   const dispatch = useDispatch();
 
-  let { productId, originalPrice = 0, discount = 0, isSale, isPublish } = productList;
+  let { originalPrice = 0, discount = 0 } = productList;
   let discountRate = discount / originalPrice;
   const [value, setValue] = useState(0);
 
@@ -33,10 +33,14 @@ const CustomSlider: FC<PrposType> = (props: PrposType) => {
   //The cursor array is used to generate the sliding scale
   const cursor = new Array(9).fill(0).map((v, i) => i + 1);
 
+  /**
+   * To handle discount by new sliding scale value
+   * @param value new sliding scale value
+   */
   function handleSliderValue(value: number){
     try {
       const discount = (value / 10) * originalPrice;
-      dispatch(changePriceBySlider({productId, originalPrice, discount, isSale, isPublish}));
+      dispatch(changeDiscountBySlider(discount));
     } catch (err) {
       console.error(err);
     }
@@ -44,6 +48,7 @@ const CustomSlider: FC<PrposType> = (props: PrposType) => {
 
   return (
     <>
+      {/* Top scale value */}
       <View style={[styles.contentView]}>
       <View style={{zIndex: 1, display:'flex', flexDirection:'row', width: '100%'}}>
         <Text style={ MIDDLE_PART_FONT }>0%</Text>
@@ -51,7 +56,7 @@ const CustomSlider: FC<PrposType> = (props: PrposType) => {
         <Text style={{ ...MIDDLE_PART_FONT as {}, marginLeft:'30%'}}>100%</Text>
       </View>
 
-
+      {/* Cursor */}
       <View style={{zIndex: 1, display:'flex',flexDirection:'row', width:'100%', position: 'absolute'}}>
         {cursor.map((item) => (
           <View key={item} style={[styles.cursorLine]}>
@@ -59,7 +64,8 @@ const CustomSlider: FC<PrposType> = (props: PrposType) => {
           </View>
         ))}
       </View>
-
+      
+      {/* Sliding colour masks */}
       <View style={{display:'flex',flexDirection:'row', width:'100%'}}>
           <LinearGradient
             colors={['#d6eccd', '#cbe9bf', '#bae3a6']}
@@ -69,7 +75,7 @@ const CustomSlider: FC<PrposType> = (props: PrposType) => {
                     top: -20,
                     zIndex: 2}} />
       </View>
-
+      {/* Custom Slider */}
         <Slider
           style={{zIndex:1}}
           value={value}

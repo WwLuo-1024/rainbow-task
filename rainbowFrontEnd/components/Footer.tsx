@@ -21,15 +21,11 @@ const Footer: FC = () => {
   const priceList = useSelector<StateType>(state => state.price) as PriceStateType;
 
   const [newPrice, setNewPrice] = useState(0)
-  const [isSale, setIsSale] = useState(priceList.isSale)
-  const [isPublish, setIsPublished] = useState(priceList.isPublish)
+  const { isSale, isPublish } = priceList
 
   //useEffect listens for data changes
   useEffect(() => {
-    setIsSale(priceList.isSale)
-    setIsPublished(priceList.isPublish)
     setNewPrice(priceList.originalPrice - priceList.discount);
-    // console.log('Before Publish:', priceList)
   }, [priceList])
 
   //To handle whether to publish product

@@ -28,16 +28,18 @@ const Middle: FC = () => {
   let circleValueInt = 0
   //useEffect listens for data changes
   useEffect(() => {
-    priceInt = Math.round(originalPrice - discount)
+    priceInt = originalPrice - discount
+    if (!Number.isInteger(priceInt)) priceInt = Math.floor(priceInt * 100) / 100
     setNewPrice(priceInt.toString())
 
-    discountInt = Math.round(discount)
+    discountInt = discount
+    if (!Number.isInteger(discount)) discountInt = Math.floor(discountInt * 100) / 100
     setDiscountPrice(discountInt.toString())
 
     discountRateRef.current = (productList.discount / productList.originalPrice).toString()
     circleValueInt = Math.round(Number(discountRateRef.current) * 100);
     setCircleValue(circleValueInt)
-  }, [productList])
+  }, [productList.originalPrice, productList.discount])
 
   /**
    * To handle calculation after user input new discount value
@@ -45,8 +47,6 @@ const Middle: FC = () => {
    */
   function handleDiscount(newDiscount: number) {
     dispatch(changeDiscount(newDiscount))
-    const priceAfterNewDiscount = originalPrice - newDiscount
-    setNewPrice(priceAfterNewDiscount.toString())
     discountRate = (newDiscount / originalPrice).toFixed(2)
     setCircleValue(Math.round(Number(discountRate) * 100))
   }
@@ -58,7 +58,6 @@ const Middle: FC = () => {
   function handleNewPrice(newPrice: number) {
     const discountAfterNewPrice = originalPrice - newPrice
     dispatch(changeDiscount(discountAfterNewPrice))
-    setDiscountPrice(discountAfterNewPrice.toString())
     discountRate = (discountAfterNewPrice / originalPrice).toFixed(2)
     setCircleValue(Math.round(Number(discountRate) * 100))
   }

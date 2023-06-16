@@ -2,7 +2,7 @@
  * @description Top Part - Control whether to sell\
  * @author Luo Wang
  */
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Switch } from '@ant-design/react-native';
 import { SALE_WORDS, TOP_TITLE } from '../constant';
@@ -13,12 +13,10 @@ import { StateType } from '../store';
 const Top: FC = () => {
   const dispatch = useDispatch()
   const priceList = useSelector<StateType>(state => state.price) as PriceStateType
-
-  const [isSale, setIsSale] = useState(priceList.isSale)
-
+  const { isSale } = priceList
+  
   //To control sale status
   function handleIsSale(value: boolean) {
-    setIsSale(!value);
     dispatch(changeSale(value))
   }
 
