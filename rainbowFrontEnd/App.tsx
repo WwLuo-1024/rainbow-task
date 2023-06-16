@@ -40,10 +40,7 @@ function App() {
       {/* Footer */}
       <Footer />
       <Divider /></View>)}
-      
-
-
-
+    
     </ScrollView>
   );
 }

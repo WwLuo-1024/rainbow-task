@@ -41,22 +41,13 @@ export const userSlice = createSlice({
       draft.isSale = action.payload
     }),
 
-<<<<<<< HEAD
     changeDiscount: produce((draft: PriceStateType, action: PayloadAction<number>) => {
-=======
-    /* Change Slider by input text box */
-    changeSlider: produce((draft: PriceStateType, action: PayloadAction<number>) => {
->>>>>>> a0b3532f8fbc445e6528b49cd3b571b6b0d3607b
       draft.discount = action.payload
     }),
   },
 })
 
-<<<<<<< HEAD
 export const { resetProduct, changePriceBySlider, changePublish, changeSale, changeDiscount } =
-=======
-export const { resetProduct, changePriceBySlider, changePublish, changeSale, changeSlider } =
->>>>>>> a0b3532f8fbc445e6528b49cd3b571b6b0d3607b
   userSlice.actions
 
 export default userSlice.reducer
