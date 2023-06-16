@@ -7,44 +7,58 @@ import { View, Text, StyleSheet, TextInput } from 'react-native'
 import { MIDDLE_PART_FONT } from '../constant'
 import { useSelector } from 'react-redux'
 import { StateType } from '../store'
-import { PriceStateType } from '../store/priceReducer'
+import { PriceStateType, changeDiscount } from '../store/priceReducer'
 import { NEW_PRICE, DISCOUNT_PRICE } from '../constant/index'
+import { useDispatch } from 'react-redux'
 import CustomSlider from './CustomSlider'
 
 const Middle: FC = () => {
   const productList = useSelector<StateType>(state => state.price) as PriceStateType
+  const dispatch = useDispatch()
   const { originalPrice = 0, discount = 0 } = productList
-  let discountRate = Math.round(discount / originalPrice).toFixed(2)
   const newPriceInitial = originalPrice - discount;
+  let discountRate = Math.round(discount / originalPrice).toFixed(2)
 
   const [newPrice, setNewPrice] = useState(newPriceInitial.toString())
   const [discountPrice, setDiscountPrice] = useState(discount.toString())
   const [circleValue, setCircleValue] = useState(Number(discountRate) * 100)
 
   let discountRateRef = useRef(discountRate)
-
+  let priceInt = 0
+  let discountInt = 0
+  let circleValueInt = 0
   //useEffect listens for data changes
   useEffect(() => {
-    const priceInt = Math.round(productList.originalPrice - productList.discount)
+    priceInt = Math.round(originalPrice - discount)
     setNewPrice(priceInt.toString())
-    const discountInt = Math.round(productList.discount)
+
+    discountInt = Math.round(discount)
     setDiscountPrice(discountInt.toString())
+
     discountRateRef.current = (productList.discount / productList.originalPrice).toString()
-    const circleValueInt = Math.round(Number(discountRateRef.current) * 100);
+    circleValueInt = Math.round(Number(discountRateRef.current) * 100);
     setCircleValue(circleValueInt)
   }, [productList])
 
-  //o handle the impact of the new discounted price
+  /**
+   * To handle calculation after user input new discount value
+   * @param newDiscount new discount value by user input
+   */
   function handleDiscount(newDiscount: number) {
+    dispatch(changeDiscount(newDiscount))
     const priceAfterNewDiscount = originalPrice - newDiscount
     setNewPrice(priceAfterNewDiscount.toString())
     discountRate = (newDiscount / originalPrice).toFixed(2)
     setCircleValue(Math.round(Number(discountRate) * 100))
   }
 
-  //o handle the impact of the new price
+  /**
+   * To handle the impact of the new price
+   * @param newPrice new price value by user input
+   */
   function handleNewPrice(newPrice: number) {
     const discountAfterNewPrice = originalPrice - newPrice
+    dispatch(changeDiscount(discountAfterNewPrice))
     setDiscountPrice(discountAfterNewPrice.toString())
     discountRate = (discountAfterNewPrice / originalPrice).toFixed(2)
     setCircleValue(Math.round(Number(discountRate) * 100))
