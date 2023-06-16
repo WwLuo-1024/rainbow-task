@@ -25,7 +25,8 @@ const Footer: FC = () => {
 
   //useEffect listens for data changes
   useEffect(() => {
-    setNewPrice(priceList.originalPrice - priceList.discount);
+    const newPrice = priceList.originalPrice - priceList.discount
+    setNewPrice(Math.floor(newPrice * 100) / 100);
   }, [priceList])
 
   //To handle whether to publish product
